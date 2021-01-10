@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title xmlns:th="http://www.thymeleaf.org">DOARS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <table cellspacing="0" cellpadding="0" bgcolor="#f0f0f0" width="600">
+
+        <tr>
+            <td align="center" style="font-family: arial; font-size: 42px; color:#4d4d4d; padding-top:10px">
+                Olá <span th:text="${nome}"/>!
+            </td>
+        </tr>
+
+        <tr>
+            <td style="font-family: arial; font-size: 14px; color:#4d4d4d; padding:10px">
+                Seja muito bem-vindo ao DOARS, confirmamos o seu cadastro na plataforma. Fique
+                atento as solicitações de
+                doação de sangue que serão registradas pela(s) entidade(s) vinculadas ao projeto.
+            </td>
+        </tr>
+
+        <tr>
+            <td style="font-family: arial; font-size: 14px; color:#4d4d4d; padding:10px">
+                Para saber mais acesse o nosso site,<a href="#">clique aqui</a>.
+            </td>
+        </tr>
+
+        <tr align="center" style="padding:10px">
+            <table cellspacing="0" cellpadding="0" bgcolor="#BE0606" style="padding:10px" width="600">
+                <tr>
+                    <td align="center" style="font-family: arial; font-size: 14px; color:#FFFF; padding:10px">
+                        Se você não registrou essa conta, ignore esse e-mail.
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="center" style="font-family: arial; font-size: 14px; color:#FFFF; padding:10px">
+                        © 2020 DOARS, Todos os direitos reservados <br />
+                    </td>
+                </tr>
+            </table>
+        </tr>
+
+    </table>
+</body>
+
+</html>
