@@ -44,6 +44,12 @@ public class EntidadeController {
         return ResponseEntity.status(HttpStatus.OK).body(entidadeService.listById(id));
     }
 
+    @GetMapping("/email/{email}")
+    @ApiOperation(value = "Retorna a entidade pelo o seu email de cadastro.")
+    public ResponseEntity<EntidadeDTO> listByEmail(@PathVariable String email){
+        return ResponseEntity.status(HttpStatus.OK).body(entidadeService.listByEmail(email));
+    }
+
     @PutMapping
     @ApiOperation(value = "Atualiza os dados da entidade em nossa base de dados.")
     public ResponseEntity<EntidadeDTO> update(@RequestBody @Valid EntidadeFormUpdate entidadeFormUpdate){

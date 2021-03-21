@@ -38,11 +38,10 @@ public class MunicipiosService {
 
     }
 
-    public List<MunicipiosSimpleDTO> listAllByEstadoSigla(String sigla){
+    public Page<MunicipiosDTO> listAllByEstadoSigla(Pageable pageable, String sigla){
 
         Estados estados = validation.estadoOrResourceNotFoundException(estadoRepository, sigla);
-        List<MunicipiosSimpleDTO> municipiosDTOS = MunicipiosSimpleDTO.converterMotelToDTO(
-                municipioRepository.findAllByEstados(estados));
+        Page<MunicipiosDTO> municipiosDTOS = MunicipiosDTO.converterMotelToDTO(municipioRepository.findAllByEstados(pageable, estados));
 
         return municipiosDTOS;
 
