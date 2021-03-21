@@ -19,6 +19,9 @@ public class SolicitacaoDoacaoDTO {
     @ApiModelProperty(value = "Identificador interno da solicitação.")
     private Long id;
 
+    @ApiModelProperty(value = "Descrição da Solicitação")
+    private String descricao;
+
     @ApiModelProperty(value = "Entidade Solicitante")
     private EntidadeSimpleDTO entidade;
 
@@ -33,6 +36,7 @@ public class SolicitacaoDoacaoDTO {
 
     public SolicitacaoDoacaoDTO(SolicitacaoDoacao solicitacaoDoacao) {
         this.id = solicitacaoDoacao.getId();
+        this.descricao = solicitacaoDoacao.getDescricao();
         this.entidade = new EntidadeSimpleDTO(solicitacaoDoacao.getEntidade());
         this.tipoSanguineosList = solicitacaoDoacao.getTipoSanguineosList();
         this.doadoresNotificados = solicitacaoDoacao.getDoadoresNotificados();

@@ -39,8 +39,10 @@ public class MunicipiosController {
 
     @GetMapping("/estados/{sigla}")
     @ApiOperation(value = "Retorna uma lista de municipios através da sigla de um estado da Federação.")
-    public ResponseEntity<List<MunicipiosSimpleDTO>> listAllByEstado(@PathVariable String sigla){
-        return ResponseEntity.status(HttpStatus.OK).body(municipiosService.listAllByEstadoSigla(sigla));
+    public ResponseEntity<Page<MunicipiosDTO>> listAllByEstado(
+            @PageableDefault(sort = "nome", direction = Sort.Direction.ASC) Pageable pageable,
+            @PathVariable String sigla){
+        return ResponseEntity.status(HttpStatus.OK).body(municipiosService.listAllByEstadoSigla(pageable, sigla));
     }
 
     @GetMapping("{id}/proximidades")
