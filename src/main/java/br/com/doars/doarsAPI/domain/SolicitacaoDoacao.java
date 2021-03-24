@@ -2,16 +2,20 @@ package br.com.doars.doarsAPI.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.*;
 
 @Data
 @Entity
 @DynamicUpdate
+@AllArgsConstructor
+@NoArgsConstructor
 @JsonIdentityInfo( generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id", scope = SolicitacaoDoacao.class)
 public class SolicitacaoDoacao {
@@ -26,9 +30,8 @@ public class SolicitacaoDoacao {
 
     private String descricao;
 
-    @OneToMany
-    @JoinColumn(name = "tipo_sanguineo_id")
-    private Set<TipoSanguineo> tipoSanguineosList;
+    @ManyToMany
+    private List<TipoSanguineo> tipoSanguineosList;
 
     private Integer doadoresNotificados;
 

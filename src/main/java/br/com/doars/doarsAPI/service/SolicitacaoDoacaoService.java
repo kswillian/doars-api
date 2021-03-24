@@ -38,10 +38,12 @@ public class SolicitacaoDoacaoService {
         Entidade entidade = validation.entidadeOrResourceNotFoundException(entidadeRepository, solicitacaoDoacaoForm.getIdEntidade());
 
         Set<TipoSanguineo> tipoSanguineoSet = new HashSet<>();
+        List<TipoSanguineo> tipoSanguineos = new ArrayList<>();
         List<Long> tipoSanguineoList = new ArrayList<>();
 
         for(Long tipoSanguineoId: solicitacaoDoacaoForm.getTipoSanguineosList()){
             tipoSanguineoSet.add(validation.tipoSanguineoOrResourceNotFoundException(tipoSanguineoRepository, tipoSanguineoId));
+            tipoSanguineos.add(validation.tipoSanguineoOrResourceNotFoundException(tipoSanguineoRepository, tipoSanguineoId));
             tipoSanguineoList.add(tipoSanguineoId);
         }
 
@@ -49,7 +51,7 @@ public class SolicitacaoDoacaoService {
 
         SolicitacaoDoacao solicitacaoDoacao = new SolicitacaoDoacao();
         solicitacaoDoacao.setEntidade(entidade);
-        solicitacaoDoacao.setTipoSanguineosList(tipoSanguineoSet);
+        solicitacaoDoacao.setTipoSanguineosList(tipoSanguineos);
         solicitacaoDoacao.setDistancia(solicitacaoDoacaoForm.getDistancia());
         solicitacaoDoacao.setDescricao(solicitacaoDoacaoForm.getDescricao());
         solicitacaoDoacao.setDoadoresNotificados(doadorDTOS.size());
@@ -85,10 +87,12 @@ public class SolicitacaoDoacaoService {
         Entidade entidade = entidadeRepository.findById(solicitacaoDoacaoFormUpdate.getIdEntidade()).get();
 
         Set<TipoSanguineo> tipoSanguineoSet = new HashSet<>();
+        List<TipoSanguineo> tipoSanguineos = new ArrayList<>();
         List<Long> tipoSanguineoList = new ArrayList<>();
 
         for(Long tipoSanguineoId: solicitacaoDoacaoFormUpdate.getTipoSanguineosList()){
             tipoSanguineoSet.add(validation.tipoSanguineoOrResourceNotFoundException(tipoSanguineoRepository, tipoSanguineoId));
+            tipoSanguineos.add(validation.tipoSanguineoOrResourceNotFoundException(tipoSanguineoRepository, tipoSanguineoId));
             tipoSanguineoList.add(tipoSanguineoId);
         }
 
@@ -97,7 +101,7 @@ public class SolicitacaoDoacaoService {
         );
 
         solicitacaoDoacao.setEntidade(entidade);
-        solicitacaoDoacao.setTipoSanguineosList(tipoSanguineoSet);
+        solicitacaoDoacao.setTipoSanguineosList(tipoSanguineos);
         solicitacaoDoacao.setDescricao(solicitacaoDoacaoFormUpdate.getDescricao());
 
         SolicitacaoDoacao solicitacaoDoacaoRegistered = solicitacaoDoacaoRepository.save(solicitacaoDoacao);
