@@ -9,6 +9,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +33,9 @@ public class SolicitacaoDoacaoController {
 
     @GetMapping
     @ApiOperation(value = "Retorna uma lista páginada de todas as solicitações de sangue de nossa base de dados.")
-    public ResponseEntity<Page<SolicitacaoDoacaoDTO>> listAll(Pageable pageable, @RequestParam( value = "entidadeId", required = false) Long id){
+    public ResponseEntity<Page<SolicitacaoDoacaoDTO>> listAll(
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+            @RequestParam( value = "entidadeId", required = false) Long id){
         if(id != null){
             return ResponseEntity.status(HttpStatus.OK).body(solicitacaoDoacaoService.listAllByEntidadeId(pageable, id));
         }
