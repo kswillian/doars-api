@@ -33,10 +33,15 @@ public class SolicitacaoDoacao {
     @ManyToMany
     private List<TipoSanguineo> tipoSanguineosList;
 
+    @ManyToMany
+    private List<Doador> doadores;
+
     private Integer doadoresNotificados;
 
     private Long distancia;
 
     private LocalDateTime dataRegistro = LocalDateTime.now();
+
+    private Boolean ativo = true;
 
 }

@@ -2,6 +2,7 @@ package br.com.doars.doarsAPI.service;
 
 import br.com.doars.doarsAPI.controller.form.SolicitacaoDoacaoForm;
 import br.com.doars.doarsAPI.controller.dto.DoadorDTO;
+import br.com.doars.doarsAPI.domain.Doador;
 import br.com.doars.doarsAPI.domain.Entidade;
 import br.com.doars.doarsAPI.domain.SolicitacaoDoacao;
 import br.com.doars.doarsAPI.domain.TipoSanguineo;
@@ -50,19 +51,20 @@ public class SolicitacaoDoacaoService {
             tipoSanguineoList.add(tipoSanguineoId);
         }
 
-        List<DoadorDTO> doadorDTOS = doadorService.listAllByTipoSanguineoListAndMunicipio(
-                tipoSanguineoList, entidade.getEndereco().getMunicipios().getId(), solicitacaoDoacaoForm.getDistancia());
+        List<Doador> doadores = doadorService.listAllDoadorTipoSanguineoListAndMunicipio(tipoSanguineoList,
+                entidade.getEndereco().getMunicipios().getId(), solicitacaoDoacaoForm.getDistancia());
 
         SolicitacaoDoacao solicitacaoDoacao = new SolicitacaoDoacao();
         solicitacaoDoacao.setEntidade(entidade);
+        solicitacaoDoacao.setDoadores(doadores);
         solicitacaoDoacao.setTipoSanguineosList(tipoSanguineos);
         solicitacaoDoacao.setDistancia(solicitacaoDoacaoForm.getDistancia());
         solicitacaoDoacao.setDescricao(solicitacaoDoacaoForm.getDescricao());
-        solicitacaoDoacao.setDoadoresNotificados(doadorDTOS.size());
+        solicitacaoDoacao.setDoadoresNotificados(doadores.size());
 
         SolicitacaoDoacao solicitacaoDoacaoRegistered = solicitacaoDoacaoRepository.save(solicitacaoDoacao);
 
-        emailService.sendEmailSolicitacao(utilidades.findAllEmailFromDoador(doadorDTOS), entidade,
+        emailService.sendEmailSolicitacao(utilidades.findAllEmailFromDoador(DoadorDTO.converterMotelToDTO(doadores)), entidade,
                 utilidades.convertSetToList(tipoSanguineoSet));
 
         return new SolicitacaoDoacaoDTO(solicitacaoDoacaoRegistered);
@@ -81,6 +83,11 @@ public class SolicitacaoDoacaoService {
         Page<SolicitacaoDoacaoDTO> solicitacoesDoacao = SolicitacaoDoacaoDTO.converterMotelToDTO(
                 solicitacaoDoacaoRepository.findAllByEntidadeId(pageable, id));
         return solicitacoesDoacao;
+    }
+
+    public List<DoadorDTO> listAllDoadoresBySolicitacaoId(Long id){
+        validation.solicitacaoDoacaoOrResourceNotFoundException(solicitacaoDoacaoRepository, id);
+        return doadorService.listAllBySolicitacaoId(id);
     }
 
     @Transactional
@@ -147,8 +154,9 @@ public class SolicitacaoDoacaoService {
     }
 
     public void deleteById(Long id){
-        validation.solicitacaoDoacaoOrResourceNotFoundException(solicitacaoDoacaoRepository, id);
-        solicitacaoDoacaoRepository.deleteById(id);
+        SolicitacaoDoacao solicitacaoDoacao = validation.solicitacaoDoacaoOrResourceNotFoundException(solicitacaoDoacaoRepository, id);
+        solicitacaoDoacao.setAtivo(false);
+        solicitacaoDoacaoRepository.save(solicitacaoDoacao);
     }
 
 }

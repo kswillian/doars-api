@@ -36,4 +36,6 @@ public class Doador {
 
     private LocalDateTime dataRegistro = LocalDateTime.now();
 
+    private Boolean ativo = true;
+
 }

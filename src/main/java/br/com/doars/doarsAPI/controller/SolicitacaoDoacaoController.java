@@ -1,5 +1,6 @@
 package br.com.doars.doarsAPI.controller;
 
+import br.com.doars.doarsAPI.controller.dto.DoadorDTO;
 import br.com.doars.doarsAPI.controller.dto.SolicitacaoDoacaoDTO;
 import br.com.doars.doarsAPI.controller.form.SolicitacaoDoacaoForm;
 import br.com.doars.doarsAPI.controller.form.SolicitacaoDoacaoFormUpdate;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -55,6 +57,12 @@ public class SolicitacaoDoacaoController {
     @ApiOperation(value = "Retorna a solicitação pelo o seu identificador interno.")
     public ResponseEntity<SolicitacaoDoacaoDTO> listById(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(solicitacaoDoacaoService.listById(id));
+    }
+
+    @GetMapping("/{id}/doadores")
+    @ApiOperation(value = "Retorna a solicitação pelo o seu identificador interno.")
+    public ResponseEntity<List<DoadorDTO>> listAllDoadoresBySolicitacaoId(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(solicitacaoDoacaoService.listAllDoadoresBySolicitacaoId(id));
     }
 
     @PutMapping

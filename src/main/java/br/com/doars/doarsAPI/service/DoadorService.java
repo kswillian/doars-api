@@ -5,11 +5,8 @@ import br.com.doars.doarsAPI.controller.dto.MunicipiosSimpleDTO;
 import br.com.doars.doarsAPI.controller.form.DoadorForm;
 import br.com.doars.doarsAPI.controller.form.DoadorFormUpdate;
 import br.com.doars.doarsAPI.domain.*;
-import br.com.doars.doarsAPI.repository.DoadorRepository;
+import br.com.doars.doarsAPI.repository.*;
 import br.com.doars.doarsAPI.util.Validation;
-import br.com.doars.doarsAPI.repository.EstadoRepository;
-import br.com.doars.doarsAPI.repository.MunicipioRepository;
-import br.com.doars.doarsAPI.repository.TipoSanguineoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -100,7 +97,12 @@ public class DoadorService {
         return doadoresDTO;
     }
 
-    public List<DoadorDTO> listAllByTipoSanguineoListAndMunicipio(List<Long> idTipoSanguineo, Long idMunicipio, Long distancia){
+    public List<DoadorDTO> listAllBySolicitacaoId(Long id){
+        List<DoadorDTO> doadores = DoadorDTO.converterMotelToDTO(doadorRepository.listAllDoadoresBySolicitacaoId(id));
+        return doadores;
+    }
+
+    public List<Doador> listAllDoadorTipoSanguineoListAndMunicipio(List<Long> idTipoSanguineo, Long idMunicipio, Long distancia){
 
         Municipios municipioCentral = validation.municipioOrReourceNotFoundException(municipioRepository, idMunicipio);
         List<MunicipiosSimpleDTO> municipiosSimpleDTOS = MunicipiosSimpleDTO.converterMotelToDTO(
@@ -112,9 +114,7 @@ public class DoadorService {
             municipiosId.add(municipiosSimpleDTO.getId());
         }
 
-        List<DoadorDTO> doadoresDTO = DoadorDTO.converterMotelToDTO(
-                doadorRepository.findByTipoSanguineoIdListNearByEntidade(idTipoSanguineo, municipiosId)
-        );
+        List<Doador> doadoresDTO = doadorRepository.findByTipoSanguineoIdListNearByEntidade(idTipoSanguineo, municipiosId);
 
         return doadoresDTO;
     }
@@ -149,8 +149,9 @@ public class DoadorService {
     }
 
     public void deleteById(Long id){
-        validation.doadorOrResourceNotFoundException(doadorRepository, id);
-        doadorRepository.deleteById(id);
+        Doador doador = validation.doadorOrResourceNotFoundException(doadorRepository, id);
+        doador.setAtivo(false);
+        doadorRepository.save(doador);
     }
 
 }
