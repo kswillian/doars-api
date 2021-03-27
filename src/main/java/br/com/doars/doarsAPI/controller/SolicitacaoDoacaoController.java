@@ -34,12 +34,21 @@ public class SolicitacaoDoacaoController {
     @GetMapping
     @ApiOperation(value = "Retorna uma lista páginada de todas as solicitações de sangue de nossa base de dados.")
     public ResponseEntity<Page<SolicitacaoDoacaoDTO>> listAll(
-            @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
-            @RequestParam( value = "entidadeId", required = false) Long id){
-        if(id != null){
-            return ResponseEntity.status(HttpStatus.OK).body(solicitacaoDoacaoService.listAllByEntidadeId(pageable, id));
-        }
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
         return ResponseEntity.status(HttpStatus.OK).body(solicitacaoDoacaoService.listAll(pageable));
+    }
+
+    @GetMapping("/entidade/{id}")
+    @ApiOperation(value = "Retorna uma lista páginada de todas as solicitações de sangue por entidade.")
+    public ResponseEntity<Page<SolicitacaoDoacaoDTO>> listAllByEntidadeId(
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+            @PathVariable Long id,
+            @RequestParam( value = "search", required = false) String search,
+            @RequestParam( value = "tiposSanguineos", required = false) String tiposSanguineos){
+
+        return ResponseEntity.status(HttpStatus.OK).body(solicitacaoDoacaoService.listAllByEntidadeIdAndTiposSanguineosAndDescricao(
+                pageable, id, tiposSanguineos, search));
+
     }
 
     @GetMapping("/{id}")

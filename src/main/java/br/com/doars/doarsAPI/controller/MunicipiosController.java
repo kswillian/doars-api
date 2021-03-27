@@ -27,8 +27,13 @@ public class MunicipiosController {
     @GetMapping
     @ApiOperation(value = "Retorna uma lista páginada de todos os municipios da Federação.")
     public ResponseEntity<Page<MunicipiosDTO>> listAll(
+            @RequestParam (required = false, defaultValue = "") String search,
             @PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable){
-        return ResponseEntity.status(HttpStatus.OK).body(municipiosService.listAll(pageable));
+        if(search.length() > 0){
+            return ResponseEntity.status(HttpStatus.OK).body(municipiosService.listAll(pageable, search));
+        }else{
+            return ResponseEntity.status(HttpStatus.OK).body(municipiosService.listAll(pageable));
+        }
     }
 
     @GetMapping("/{id}")
