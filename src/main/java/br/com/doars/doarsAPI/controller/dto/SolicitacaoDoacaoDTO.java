@@ -1,11 +1,11 @@
 package br.com.doars.doarsAPI.controller.dto;
 
 import br.com.doars.doarsAPI.domain.SolicitacaoDoacao;
+import br.com.doars.doarsAPI.util.Utilidades;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.domain.Page;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +32,7 @@ public class SolicitacaoDoacaoDTO {
     private Long distancia;
 
     @ApiModelProperty(value = "Data de registro da solicitação de doação de sangue.")
-    private LocalDateTime dataRegistro;
+    private String dataRegistro;
 
     public SolicitacaoDoacaoDTO(SolicitacaoDoacao solicitacaoDoacao) {
         this.id = solicitacaoDoacao.getId();
@@ -41,7 +41,7 @@ public class SolicitacaoDoacaoDTO {
         this.entidade = new EntidadeSimpleDTO(solicitacaoDoacao.getEntidade());
         this.tipoSanguineosList = TipoSanguineoDTO.converterMotelToDTO(solicitacaoDoacao.getTipoSanguineosList());
         this.doadoresNotificados = solicitacaoDoacao.getDoadoresNotificados();
-        this.dataRegistro = solicitacaoDoacao.getDataRegistro();
+        this.dataRegistro = new Utilidades().formatDate(solicitacaoDoacao.getDataRegistro());
     }
 
     public static List<SolicitacaoDoacaoDTO> converterMotelToDTO(List<SolicitacaoDoacao> solicitacoesDoacao){

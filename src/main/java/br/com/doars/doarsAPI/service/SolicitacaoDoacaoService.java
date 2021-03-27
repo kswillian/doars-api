@@ -35,19 +35,23 @@ public class SolicitacaoDoacaoService {
 
     public SolicitacaoDoacaoDTO register(SolicitacaoDoacaoForm solicitacaoDoacaoForm){
 
-        Entidade entidade = validation.entidadeOrResourceNotFoundException(entidadeRepository, solicitacaoDoacaoForm.getIdEntidade());
+        Entidade entidade = validation.entidadeOrResourceNotFoundException(
+                entidadeRepository, solicitacaoDoacaoForm.getIdEntidade());
 
         Set<TipoSanguineo> tipoSanguineoSet = new HashSet<>();
         List<TipoSanguineo> tipoSanguineos = new ArrayList<>();
         List<Long> tipoSanguineoList = new ArrayList<>();
 
         for(Long tipoSanguineoId: solicitacaoDoacaoForm.getTipoSanguineosList()){
-            tipoSanguineoSet.add(validation.tipoSanguineoOrResourceNotFoundException(tipoSanguineoRepository, tipoSanguineoId));
-            tipoSanguineos.add(validation.tipoSanguineoOrResourceNotFoundException(tipoSanguineoRepository, tipoSanguineoId));
+            tipoSanguineoSet.add(validation.tipoSanguineoOrResourceNotFoundException(
+                    tipoSanguineoRepository, tipoSanguineoId));
+            tipoSanguineos.add(validation.tipoSanguineoOrResourceNotFoundException(
+                    tipoSanguineoRepository, tipoSanguineoId));
             tipoSanguineoList.add(tipoSanguineoId);
         }
 
-        List<DoadorDTO> doadorDTOS = doadorService.listAllByTipoSanguineoListAndMunicipio(tipoSanguineoList, entidade.getEndereco().getMunicipios().getId(), solicitacaoDoacaoForm.getDistancia());
+        List<DoadorDTO> doadorDTOS = doadorService.listAllByTipoSanguineoListAndMunicipio(
+                tipoSanguineoList, entidade.getEndereco().getMunicipios().getId(), solicitacaoDoacaoForm.getDistancia());
 
         SolicitacaoDoacao solicitacaoDoacao = new SolicitacaoDoacao();
         solicitacaoDoacao.setEntidade(entidade);
@@ -66,8 +70,44 @@ public class SolicitacaoDoacaoService {
     }
 
     public Page<SolicitacaoDoacaoDTO> listAll(Pageable pageable){
-        Page<SolicitacaoDoacaoDTO> solicitacoesDoacao = SolicitacaoDoacaoDTO.converterMotelToDTO(solicitacaoDoacaoRepository.findAll(pageable));
+        Page<SolicitacaoDoacaoDTO> solicitacoesDoacao = SolicitacaoDoacaoDTO.converterMotelToDTO(
+                solicitacaoDoacaoRepository.findAll(pageable));
         return solicitacoesDoacao;
+    }
+
+    @Transactional
+    public Page<SolicitacaoDoacaoDTO> listAllByEntidadeId(Pageable pageable, Long id){
+        validation.entidadeOrResourceNotFoundException(entidadeRepository, id);
+        Page<SolicitacaoDoacaoDTO> solicitacoesDoacao = SolicitacaoDoacaoDTO.converterMotelToDTO(
+                solicitacaoDoacaoRepository.findAllByEntidadeId(pageable, id));
+        return solicitacoesDoacao;
+    }
+
+    @Transactional
+    public Page<SolicitacaoDoacaoDTO> listAllByEntidadeIdAndTiposSanguineosAndDescricao(Pageable pageable, Long id, String tipoSanguineo, String search){
+
+        Page<SolicitacaoDoacaoDTO> solicitacoesDoacao;
+        List<Long> tipoSanguineos;
+        validation.entidadeOrResourceNotFoundException(entidadeRepository, id);
+
+        if(tipoSanguineo != null && search == null){
+            tipoSanguineos = utilidades.convertStringToList(tipoSanguineo);
+            solicitacoesDoacao = SolicitacaoDoacaoDTO.converterMotelToDTO(
+                    solicitacaoDoacaoRepository.findAllByEntidadeIdAndTiposSanguineos(pageable, tipoSanguineos));
+        }else if(tipoSanguineo == null && search != null){
+            solicitacoesDoacao = SolicitacaoDoacaoDTO.converterMotelToDTO(
+                    solicitacaoDoacaoRepository.findAllByEntidadeIdAndDescricao(pageable, search));
+        }else if(tipoSanguineo != null && search != null){
+            tipoSanguineos = utilidades.convertStringToList(tipoSanguineo);
+            solicitacoesDoacao = SolicitacaoDoacaoDTO.converterMotelToDTO(
+                    solicitacaoDoacaoRepository.findAllByEntidadeIdAndTiposSanguineosAndDescricao(pageable, tipoSanguineos, search));
+        }else {
+            solicitacoesDoacao = SolicitacaoDoacaoDTO.converterMotelToDTO(
+                    solicitacaoDoacaoRepository.findAll(pageable));
+        }
+
+        return solicitacoesDoacao;
+
     }
 
     public SolicitacaoDoacaoDTO listById(Long id){
@@ -75,29 +115,25 @@ public class SolicitacaoDoacaoService {
         return new SolicitacaoDoacaoDTO(solicitacaoDoacao);
     }
 
-    @Transactional
-    public Page<SolicitacaoDoacaoDTO> listAllByEntidadeId(Pageable pageable, Long id){
-        validation.entidadeOrResourceNotFoundException(entidadeRepository, id);
-        Page<SolicitacaoDoacaoDTO> solicitacoesDoacao = SolicitacaoDoacaoDTO.converterMotelToDTO(solicitacaoDoacaoRepository.findAllByEntidadeId(pageable, id));
-        return solicitacoesDoacao;
-    }
-
     public SolicitacaoDoacaoDTO update(SolicitacaoDoacaoFormUpdate solicitacaoDoacaoFormUpdate){
 
-        Entidade entidade = entidadeRepository.findById(solicitacaoDoacaoFormUpdate.getIdEntidade()).get();
+        Entidade entidade = entidadeRepository.findById(
+                solicitacaoDoacaoFormUpdate.getIdEntidade()).get();
 
         Set<TipoSanguineo> tipoSanguineoSet = new HashSet<>();
         List<TipoSanguineo> tipoSanguineos = new ArrayList<>();
         List<Long> tipoSanguineoList = new ArrayList<>();
 
         for(Long tipoSanguineoId: solicitacaoDoacaoFormUpdate.getTipoSanguineosList()){
-            tipoSanguineoSet.add(validation.tipoSanguineoOrResourceNotFoundException(tipoSanguineoRepository, tipoSanguineoId));
-            tipoSanguineos.add(validation.tipoSanguineoOrResourceNotFoundException(tipoSanguineoRepository, tipoSanguineoId));
+            tipoSanguineoSet.add(validation.tipoSanguineoOrResourceNotFoundException(
+                    tipoSanguineoRepository, tipoSanguineoId));
+            tipoSanguineos.add(validation.tipoSanguineoOrResourceNotFoundException(
+                    tipoSanguineoRepository, tipoSanguineoId));
             tipoSanguineoList.add(tipoSanguineoId);
         }
 
-        SolicitacaoDoacao solicitacaoDoacao = validation.solicitacaoDoacaoOrResourceNotFoundException(solicitacaoDoacaoRepository,
-                solicitacaoDoacaoFormUpdate.getId()
+        SolicitacaoDoacao solicitacaoDoacao = validation.solicitacaoDoacaoOrResourceNotFoundException(
+                solicitacaoDoacaoRepository, solicitacaoDoacaoFormUpdate.getId()
         );
 
         solicitacaoDoacao.setEntidade(entidade);

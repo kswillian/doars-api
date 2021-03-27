@@ -29,6 +29,11 @@ public class MunicipiosService {
        return municipiosDTOS;
     }
 
+    public Page<MunicipiosDTO> listAll(Pageable pageable, String search){
+        Page<MunicipiosDTO> municipiosDTOS = MunicipiosDTO.converterMotelToDTO(municipioRepository.findAllSearch(pageable, search));
+        return municipiosDTOS;
+    }
+
     public MunicipiosDTO listById(Long id){
 
         MunicipiosDTO municipiosDTO = new MunicipiosDTO(

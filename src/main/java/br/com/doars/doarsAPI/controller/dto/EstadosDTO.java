@@ -19,10 +19,14 @@ public class EstadosDTO {
     @ApiModelProperty(value = "Sigla do Unidade da Federação.")
     private String sigla;
 
+    @ApiModelProperty(value = "Pais vinculado ao estado.")
+    private PaisDTO pais;
+
     public EstadosDTO(Estados estados) {
         this.id = estados.getId();
         this.nome = estados.getNome();
         this.sigla = estados.getSigla();
+        this.pais = new PaisDTO(estados.getPais());
     }
 
     public static List<EstadosDTO> converterMotelToDTO(List<Estados> estadosList){

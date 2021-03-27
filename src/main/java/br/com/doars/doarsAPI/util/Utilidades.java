@@ -8,10 +8,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Component
 public class Utilidades {
@@ -30,6 +31,10 @@ public class Utilidades {
 
     public List<TipoSanguineo> convertSetToList(Set<TipoSanguineo> set){
         return Lists.newArrayList(set);
+    }
+
+    public List<Long> convertStringToList(String numbers){
+        return new ArrayList<>(Arrays.asList(numbers.split(",")).stream().map(s -> Long.parseLong(s.trim())).collect(Collectors.toList()));
     }
 
     public String[] convertListToString(List<String> list){
@@ -81,6 +86,11 @@ public class Utilidades {
         }
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(object);
+    }
+
+    public String formatDate(LocalDateTime date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY HH:mm");
+        return date.format(formatter);
     }
 
 }
