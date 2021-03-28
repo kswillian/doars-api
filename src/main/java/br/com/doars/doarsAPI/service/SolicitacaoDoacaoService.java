@@ -77,6 +77,14 @@ public class SolicitacaoDoacaoService {
         return solicitacoesDoacao;
     }
 
+    public Long countSolicitacoesDoacaoAtivas(){
+        return solicitacaoDoacaoRepository.countSolicitacoesDoacaoAtivas();
+    }
+
+    public Long countSolicitacoesDoacaoAtivasByEntidadeAndTipoSanguineo(Long entidadeId, Long tipoSanguineoId){
+        return solicitacaoDoacaoRepository.countSolicitacoesDoacaoAtivasByEntidadeAndTipoSanguineo(entidadeId, tipoSanguineoId);
+    }
+
     @Transactional
     public Page<SolicitacaoDoacaoDTO> listAllByEntidadeId(Pageable pageable, Long id){
         validation.entidadeOrResourceNotFoundException(entidadeRepository, id);
@@ -91,7 +99,8 @@ public class SolicitacaoDoacaoService {
     }
 
     @Transactional
-    public Page<SolicitacaoDoacaoDTO> listAllByEntidadeIdAndTiposSanguineosAndDescricao(Pageable pageable, Long id, String tipoSanguineo, String search){
+    public Page<SolicitacaoDoacaoDTO> listAllByEntidadeIdAndTiposSanguineosAndDescricao(
+            Pageable pageable, Long id, String tipoSanguineo, String search){
 
         Page<SolicitacaoDoacaoDTO> solicitacoesDoacao;
         List<Long> tipoSanguineos;

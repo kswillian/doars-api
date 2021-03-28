@@ -58,6 +58,10 @@ public class DoadorService {
         return doadorDTOS;
     }
 
+    public Long countDoadoresAtivos(){
+        return doadorRepository.countDoadoresAtivos();
+    }
+
     public DoadorDTO listById(Long id){
         Doador doador = validation.doadorOrResourceNotFoundException(doadorRepository, id);
         return new DoadorDTO(doador);
