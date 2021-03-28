@@ -3,6 +3,7 @@ package br.com.doars.doarsAPI.controller.form;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class SolicitacaoDoacaoForm {
     private Long idEntidade;
 
     @NotNull
+    @NotEmpty
     @ApiModelProperty(value = "Lista dos identificadores internos dos tipos sanguineos.")
     private List<Long> tipoSanguineosList;
 

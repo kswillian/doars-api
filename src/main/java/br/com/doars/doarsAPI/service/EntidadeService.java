@@ -35,6 +35,10 @@ public class EntidadeService {
 
     private UsuarioService usuarioService;
 
+    public Long countEntidadesAtivas(){
+        return entidadeRepository.countEntidadesAtivas();
+    }
+
     public EntidadeDTO register(EntidadeForm entidadeForm){
 
         Municipios municipios = validation.municipioOrReourceNotFoundException(municipioRepository, entidadeForm.getEndereco().getIdMunicipio());
@@ -143,4 +147,7 @@ public class EntidadeService {
 
     }
 
+    public void validationEntidadeParam(Long id){
+        validation.entidadeOrResourceNotFoundException(entidadeRepository, id);
+    }
 }

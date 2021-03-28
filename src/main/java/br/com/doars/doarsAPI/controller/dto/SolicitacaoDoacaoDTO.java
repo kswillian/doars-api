@@ -34,8 +34,12 @@ public class SolicitacaoDoacaoDTO {
     @ApiModelProperty(value = "Data de registro da solicitação de doação de sangue.")
     private String dataRegistro;
 
+    @ApiModelProperty(value = "Status da solicitacao de doação.")
+    private Boolean ativo;
+
     public SolicitacaoDoacaoDTO(SolicitacaoDoacao solicitacaoDoacao) {
         this.id = solicitacaoDoacao.getId();
+        this.ativo = solicitacaoDoacao.getAtivo();
         this.distancia = solicitacaoDoacao.getDistancia();
         this.descricao = solicitacaoDoacao.getDescricao();
         this.entidade = new EntidadeSimpleDTO(solicitacaoDoacao.getEntidade());
