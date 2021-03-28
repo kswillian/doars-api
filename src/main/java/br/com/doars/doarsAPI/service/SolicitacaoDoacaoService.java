@@ -104,22 +104,22 @@ public class SolicitacaoDoacaoService {
 
         Page<SolicitacaoDoacaoDTO> solicitacoesDoacao;
         List<Long> tipoSanguineos;
-        validation.entidadeOrResourceNotFoundException(entidadeRepository, id);
+        Entidade entidade = validation.entidadeOrResourceNotFoundException(entidadeRepository, id);
 
         if(tipoSanguineo != null && search == null){
             tipoSanguineos = utilidades.convertStringToList(tipoSanguineo);
             solicitacoesDoacao = SolicitacaoDoacaoDTO.converterMotelToDTO(
-                    solicitacaoDoacaoRepository.findAllByEntidadeIdAndTiposSanguineos(pageable, tipoSanguineos));
+                    solicitacaoDoacaoRepository.findAllByEntidadeIdAndTiposSanguineos(pageable, tipoSanguineos, entidade.getId()));
         }else if(tipoSanguineo == null && search != null){
             solicitacoesDoacao = SolicitacaoDoacaoDTO.converterMotelToDTO(
-                    solicitacaoDoacaoRepository.findAllByEntidadeIdAndDescricao(pageable, search));
+                    solicitacaoDoacaoRepository.findAllByEntidadeIdAndDescricao(pageable, search, entidade.getId()));
         }else if(tipoSanguineo != null && search != null){
             tipoSanguineos = utilidades.convertStringToList(tipoSanguineo);
             solicitacoesDoacao = SolicitacaoDoacaoDTO.converterMotelToDTO(
-                    solicitacaoDoacaoRepository.findAllByEntidadeIdAndTiposSanguineosAndDescricao(pageable, tipoSanguineos, search));
+                    solicitacaoDoacaoRepository.findAllByEntidadeIdAndTiposSanguineosAndDescricao(pageable, tipoSanguineos, search, entidade.getId()));
         }else {
             solicitacoesDoacao = SolicitacaoDoacaoDTO.converterMotelToDTO(
-                    solicitacaoDoacaoRepository.findAll(pageable));
+                    solicitacaoDoacaoRepository.findAllByEntidadeId(pageable, entidade.getId()));
         }
 
         return solicitacoesDoacao;
