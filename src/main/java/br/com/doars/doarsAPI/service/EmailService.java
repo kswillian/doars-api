@@ -6,6 +6,8 @@ import br.com.doars.doarsAPI.domain.TipoSanguineo;
 import br.com.doars.doarsAPI.domain.Usuario;
 import br.com.doars.doarsAPI.util.Utilidades;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -19,11 +21,15 @@ import javax.mail.internet.MimeMessage;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class EmailService {
 
+    @Autowired
     private JavaMailSender mailSender;
+
+    @Autowired
     private SpringTemplateEngine templateEngine;
+
+    @Autowired
     private Utilidades utilidades;
 
     @Async
