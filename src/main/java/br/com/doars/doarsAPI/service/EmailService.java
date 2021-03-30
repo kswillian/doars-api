@@ -12,6 +12,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -33,6 +34,7 @@ public class EmailService {
     private Utilidades utilidades;
 
     @Async
+    @Scheduled(fixedDelay = 8000)
     public void sendSimpleEmail(String to, String subject, String text){
 
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
@@ -54,6 +56,7 @@ public class EmailService {
     }
 
     @Async
+    @Scheduled(fixedDelay = 8000)
     public void sendEmailSolicitacao(List<String> emails, Entidade entidade, TipoSanguineo tipoSanguineo){
 
         if(emails.size() > 0){
@@ -78,6 +81,7 @@ public class EmailService {
     }
 
     @Async
+    @Scheduled(fixedDelay = 8000)
     public void sendEmailSolicitacao(List<String> emails, Entidade entidade, List<TipoSanguineo> tipoSanguineos){
 
         if(emails.size() > 0){
@@ -102,6 +106,7 @@ public class EmailService {
     }
 
     @Async
+    @Scheduled(fixedDelay = 8000)
     public void sendEmailRegisterDoador(Doador doador){
 
         Context context = new Context();
@@ -128,6 +133,7 @@ public class EmailService {
     }
 
     @Async
+    @Scheduled(fixedDelay = 8000)
     public void sendEmailRegisterEntidade(Entidade entidade, Usuario usuario){
 
         Context context = new Context();
@@ -155,6 +161,7 @@ public class EmailService {
     }
 
     @Async
+    @Scheduled(fixedDelay = 8000)
     public void sendEmailUpdateEntidade(Entidade entidade, Usuario usuario){
 
         Context context = new Context();
