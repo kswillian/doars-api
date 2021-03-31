@@ -31,7 +31,7 @@ public class SolicitacaoDoacao {
     private String descricao;
 
     @ManyToMany
-    private List<TipoSanguineo> tipoSanguineosList;
+    private List<TipoSanguineo> tiposSanguineos;
 
     @ManyToMany
     private List<Doador> doadores;

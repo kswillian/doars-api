@@ -57,7 +57,7 @@ public class SolicitacaoDoacaoService {
         SolicitacaoDoacao solicitacaoDoacao = new SolicitacaoDoacao();
         solicitacaoDoacao.setEntidade(entidade);
         solicitacaoDoacao.setDoadores(doadores);
-        solicitacaoDoacao.setTipoSanguineosList(tipoSanguineos);
+        solicitacaoDoacao.setTiposSanguineos(tipoSanguineos);
         solicitacaoDoacao.setDistancia(solicitacaoDoacaoForm.getDistancia());
         solicitacaoDoacao.setDescricao(solicitacaoDoacaoForm.getDescricao());
         solicitacaoDoacao.setDoadoresNotificados(doadores.size());
@@ -153,7 +153,7 @@ public class SolicitacaoDoacaoService {
         );
 
         solicitacaoDoacao.setEntidade(entidade);
-        solicitacaoDoacao.setTipoSanguineosList(tipoSanguineos);
+        solicitacaoDoacao.setTiposSanguineos(tipoSanguineos);
         solicitacaoDoacao.setDescricao(solicitacaoDoacaoFormUpdate.getDescricao());
 
         SolicitacaoDoacao solicitacaoDoacaoRegistered = solicitacaoDoacaoRepository.save(solicitacaoDoacao);
