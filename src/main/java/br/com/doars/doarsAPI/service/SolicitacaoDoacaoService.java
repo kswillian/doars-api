@@ -43,7 +43,7 @@ public class SolicitacaoDoacaoService {
         List<TipoSanguineo> tipoSanguineos = new ArrayList<>();
         List<Long> tipoSanguineoList = new ArrayList<>();
 
-        for(Long tipoSanguineoId: solicitacaoDoacaoForm.getTipoSanguineos()){
+        for(Long tipoSanguineoId: solicitacaoDoacaoForm.getTiposSanguineos()){
             tipoSanguineoSet.add(validation.tipoSanguineoOrResourceNotFoundException(
                     tipoSanguineoRepository, tipoSanguineoId));
             tipoSanguineos.add(validation.tipoSanguineoOrResourceNotFoundException(
@@ -140,7 +140,7 @@ public class SolicitacaoDoacaoService {
         List<TipoSanguineo> tipoSanguineos = new ArrayList<>();
         List<Long> tipoSanguineoList = new ArrayList<>();
 
-        for(Long tipoSanguineoId: solicitacaoDoacaoFormUpdate.getTipoSanguineos()){
+        for(Long tipoSanguineoId: solicitacaoDoacaoFormUpdate.getTiposSanguineos()){
             tipoSanguineoSet.add(validation.tipoSanguineoOrResourceNotFoundException(
                     tipoSanguineoRepository, tipoSanguineoId));
             tipoSanguineos.add(validation.tipoSanguineoOrResourceNotFoundException(

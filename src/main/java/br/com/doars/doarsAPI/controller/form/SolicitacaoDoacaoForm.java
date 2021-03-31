@@ -14,10 +14,9 @@ public class SolicitacaoDoacaoForm {
     @ApiModelProperty(value = "Identificador interno da entidade.")
     private Long idEntidade;
 
-    @NotNull
     @NotEmpty
     @ApiModelProperty(value = "Lista dos identificadores internos dos tipos sanguineos.")
-    private List<Long> tipoSanguineos;
+    private List<Long> tiposSanguineos;
 
     private String descricao;
 
