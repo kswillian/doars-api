@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 @RequestMapping("api/v1/localidades/municipios")
 @Api(tags = "Municipio (Municipios)")
 public class MunicipiosController {

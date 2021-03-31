@@ -21,6 +21,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 @RequestMapping("api/v1/notificacoes/doacoes")
 @Api(tags = "Solicitação (Solicitações de Doação)")
 public class SolicitacaoDoacaoController {

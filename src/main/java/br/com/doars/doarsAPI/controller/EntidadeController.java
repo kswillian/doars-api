@@ -19,6 +19,7 @@ import javax.validation.Valid;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 @RequestMapping("api/v1/entidades")
 @Api(tags = "Entidade (Entidades)")
 public class EntidadeController {

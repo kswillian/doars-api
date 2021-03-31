@@ -16,6 +16,7 @@ import javax.validation.Valid;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 @RequestMapping("api/v1/usuarios")
 @Api(tags = "Autenticação (Usuário)")
 public class AutenticacaoController {
