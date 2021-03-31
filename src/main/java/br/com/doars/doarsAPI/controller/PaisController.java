@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 @RequestMapping("api/v1/localidades/paises")
 @Api(tags = "Pais (Paises)")
 public class PaisController {

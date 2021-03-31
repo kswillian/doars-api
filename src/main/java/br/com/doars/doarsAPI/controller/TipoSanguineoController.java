@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 @RequestMapping("api/v1/tipos-sanguineos")
 @Api(tags = "Tipo Sanguineo (Tipos Sanguineos)")
 public class TipoSanguineoController {
