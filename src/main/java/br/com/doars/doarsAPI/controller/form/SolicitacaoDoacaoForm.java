@@ -17,7 +17,7 @@ public class SolicitacaoDoacaoForm {
     @NotNull
     @NotEmpty
     @ApiModelProperty(value = "Lista dos identificadores internos dos tipos sanguineos.")
-    private List<Long> tipoSanguineosList;
+    private List<Long> tipoSanguineos;
 
     private String descricao;
 
