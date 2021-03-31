@@ -43,7 +43,7 @@ public class SolicitacaoDoacaoDTO {
         this.distancia = solicitacaoDoacao.getDistancia();
         this.descricao = solicitacaoDoacao.getDescricao();
         this.entidade = new EntidadeSimpleDTO(solicitacaoDoacao.getEntidade());
-        this.tipoSanguineosList = TipoSanguineoDTO.converterMotelToDTO(solicitacaoDoacao.getTipoSanguineosList());
+        this.tipoSanguineosList = TipoSanguineoDTO.converterMotelToDTO(solicitacaoDoacao.getTiposSanguineos());
         this.doadoresNotificados = solicitacaoDoacao.getDoadoresNotificados();
         this.dataRegistro = new Utilidades().formatDate(solicitacaoDoacao.getDataRegistro());
     }
