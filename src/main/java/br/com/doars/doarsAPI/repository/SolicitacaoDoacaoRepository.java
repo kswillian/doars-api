@@ -16,7 +16,7 @@ public interface SolicitacaoDoacaoRepository extends JpaRepository<SolicitacaoDo
     @Query(value = "select count(*) from solicitacao_doacao s where s.ativo = true", nativeQuery = true)
     Long countSolicitacoesDoacaoAtivas();
 
-    @Query(value = "select count(s.*) from solicitacao_doacao s, solicitacao_doacao_tipo_sanguineos_list sts where " +
+    @Query(value = "select count(s.*) from solicitacao_doacao s, solicitacao_doacao_tipos_sanguineos sts where " +
             "s.id = sts.solicitacao_doacao_id and s.ativo = true and s.entidade_id = ?1 and sts.tipo_sanguineos_list_id = ?2", nativeQuery = true)
     Long countSolicitacoesDoacaoAtivasByEntidadeAndTipoSanguineo(Long entidadeId, Long tipoSanguineoDd);
 
