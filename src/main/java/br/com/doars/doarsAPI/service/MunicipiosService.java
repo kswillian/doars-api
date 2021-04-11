@@ -43,6 +43,15 @@ public class MunicipiosService {
 
     }
 
+    public List<MunicipiosDTO> listAllByEstadoSigla(String sigla){
+
+        Estados estados = validation.estadoOrResourceNotFoundException(estadoRepository, sigla);
+        List<MunicipiosDTO> municipiosDTOS = MunicipiosDTO.converterMotelToDTO(municipioRepository.findAllByEstados(estados));
+
+        return municipiosDTOS;
+
+    }
+
     public Page<MunicipiosDTO> listAllByEstadoSigla(Pageable pageable, String sigla){
 
         Estados estados = validation.estadoOrResourceNotFoundException(estadoRepository, sigla);
