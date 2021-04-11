@@ -51,7 +51,7 @@ public class MunicipiosController {
         return ResponseEntity.status(HttpStatus.OK).body(municipiosService.listAllByEstadoSigla(pageable, sigla));
     }
 
-    @GetMapping("/estados/{sigla}")
+    @GetMapping("/estados/{sigla}/lista")
     @ApiOperation(value = "Retorna uma lista de municipios através da sigla de um estado da Federação.")
     public ResponseEntity<List<MunicipiosDTO>> listAllByEstado(
             @PathVariable String sigla){
