@@ -88,7 +88,6 @@ public class Validation {
     }
 
     public Entidade entidadeOrResourceNotFoundException(EntidadeRepository entidadeRepository, String email ){
-        System.out.println("caiu");
         return entidadeRepository.findByContatoEmail(email).orElseThrow(() -> new ResourceNotFoundException(String.format("Entidade com o email '%s' não foi encontrada.", email)));
     }
 

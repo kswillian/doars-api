@@ -4,6 +4,7 @@ import br.com.doars.doarsAPI.domain.enuns.DiasSemana;
 import br.com.doars.doarsAPI.domain.enuns.TipoEntidade;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ public class EntidadeForm {
 
     @NotNull
     @ApiModelProperty(value = "CNPJ da entidade.")
+    @CNPJ
     private String cnpj;
 
     @NotNull

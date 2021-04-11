@@ -13,6 +13,8 @@ import java.util.List;
 
 public interface MunicipioRepository extends JpaRepository<Municipios, Long> {
 
+    List<Municipios> findAllByEstados(Estados estados);
+
     Page<Municipios> findAllByEstados(Pageable pageable, Estados estados);
 
     @Query(value = "select * from Municipios where nome LIKE CONCAT('%',:search,'%') order by nome ASC", nativeQuery = true)

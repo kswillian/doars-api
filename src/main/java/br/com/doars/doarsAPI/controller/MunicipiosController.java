@@ -51,6 +51,13 @@ public class MunicipiosController {
         return ResponseEntity.status(HttpStatus.OK).body(municipiosService.listAllByEstadoSigla(pageable, sigla));
     }
 
+    @GetMapping("/estados/{sigla}")
+    @ApiOperation(value = "Retorna uma lista de municipios através da sigla de um estado da Federação.")
+    public ResponseEntity<List<MunicipiosDTO>> listAllByEstado(
+            @PathVariable String sigla){
+        return ResponseEntity.status(HttpStatus.OK).body(municipiosService.listAllByEstadoSigla(sigla));
+    }
+
     @GetMapping("{id}/proximidades")
     @ApiOperation(value = "Retorna uma lista de municipios em um raio de 30Km com base em um municipio central.")
     public ResponseEntity<List<MunicipiosSimpleDTO>> listAllNearBy(
