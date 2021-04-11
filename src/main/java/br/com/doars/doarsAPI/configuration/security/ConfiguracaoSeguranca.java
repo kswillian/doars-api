@@ -67,6 +67,7 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/v1/localidades/estados/sigla/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/localidades/municipios/*/proximidades").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/localidades/municipios/estados/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/localidades/municipios/estados/*/lista").permitAll()
 
                 .antMatchers(HttpMethod.GET, "/api/v1/tipos-sanguineos").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/tipos-sanguineos/*").permitAll()
