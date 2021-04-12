@@ -123,7 +123,7 @@ public class Validation {
 
     public void doadorOrExists(DoadorRepository doadorRepository, Doador doador){
         if(doadorRepository.existsByContatoEmail(doador.getContato().getEmail())){
-            throw new DoadorAlreadyExists(String.format("Já há um doador cadastrada com o email %s", doador.getContato().getEmail()));
+            throw new DoadorAlreadyExists(String.format("Já há um doador cadastrado com o email %s", doador.getContato().getEmail()));
         }
     }
 
@@ -136,7 +136,7 @@ public class Validation {
             Doador doadorUpdated = doadorRepository.findById(doador.getId()).get();
 
             if(doadorUpdated.getId() != id){
-                throw new DoadorAlreadyExists(String.format("Já há um doador cadastrada com o email %s", doador.getContato().getEmail()));
+                throw new DoadorAlreadyExists(String.format("Já há um doador cadastrado com o email %s", doador.getContato().getEmail()));
             }
 
         }
