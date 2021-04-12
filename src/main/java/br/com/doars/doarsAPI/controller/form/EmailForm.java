@@ -21,7 +21,6 @@ public class EmailForm {
     private String email;
 
     @NotEmpty
-    @Email
     @ApiModelProperty(value = "Assunto do E-mail")
     private String assunto;
 
