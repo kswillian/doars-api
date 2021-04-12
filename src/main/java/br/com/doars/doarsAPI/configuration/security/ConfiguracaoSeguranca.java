@@ -72,6 +72,8 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/v1/tipos-sanguineos").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/tipos-sanguineos/*").permitAll()
 
+                .antMatchers(HttpMethod.POST, "/api/v1/email").permitAll()
+
                 .anyRequest().authenticated()
                 .and().cors()
                 .and().csrf().disable()

@@ -1,5 +1,6 @@
 package br.com.doars.doarsAPI.service;
 
+import br.com.doars.doarsAPI.controller.form.EmailForm;
 import br.com.doars.doarsAPI.domain.Doador;
 import br.com.doars.doarsAPI.domain.Entidade;
 import br.com.doars.doarsAPI.domain.TipoSanguineo;
@@ -7,6 +8,7 @@ import br.com.doars.doarsAPI.domain.Usuario;
 import br.com.doars.doarsAPI.util.Utilidades;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -33,6 +35,9 @@ public class EmailService {
     @Autowired
     private Utilidades utilidades;
 
+    @Value("${spring.mail.username}")
+    private String emailPlataforma;
+
     @Async
     @Scheduled(fixedDelay = 8000)
     public void sendSimpleEmail(String to, String subject, String text){
@@ -41,6 +46,29 @@ public class EmailService {
         simpleMailMessage.setTo(to);
         simpleMailMessage.setSubject(subject);
         simpleMailMessage.setText(text);
+
+        try {
+
+            mailSender.send(simpleMailMessage);
+            Thread.sleep(5000);
+
+        }catch (InterruptedException e ){
+            e.printStackTrace();
+        }
+
+        System.out.println("Email enviado...");
+
+    }
+
+    @Async
+    @Scheduled(fixedDelay = 8000)
+    public void sendSimpleEmailQuestion(EmailForm emailForm){
+
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setFrom(emailForm.getEmail());
+        simpleMailMessage.setTo(emailPlataforma);
+        simpleMailMessage.setSubject(emailForm.getAssunto());
+        simpleMailMessage.setText(emailForm.getMensagem());
 
         try {
 
