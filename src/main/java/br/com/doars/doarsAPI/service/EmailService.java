@@ -114,20 +114,30 @@ public class EmailService {
 
         if(emails.size() > 0){
 
-            String tiposSanguineos = utilidades.convertListTiposSanguineosToString(tipoSanguineos);
-            SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-            simpleMailMessage.setTo(utilidades.convertListToString(emails));
-            simpleMailMessage.setSubject("Necessidade de sangue " + tiposSanguineos);
-            simpleMailMessage.setText("Olá doador, a " + entidade.getNome() + " necessita de doação do sangue do(s) tipo(s) " + tiposSanguineos);
+            String enredecoFormated = entidade.getEndereco().getMunicipios().getNome() + " - " + entidade.getEndereco().getLogradouro() + ", "+ entidade.getEndereco().getNumero() + ".";
+            Context context = new Context();
+            context.setVariable("entidade", entidade);
+            context.setVariable("endereco", enredecoFormated);
+            context.setVariable("contato", entidade.getContato());
+            context.setVariable("tiposSanguineos", utilidades.convertListTiposSanguineosToString(tipoSanguineos));
 
-            try{
-                mailSender.send(simpleMailMessage);
-                Thread.sleep(5000);
-            }catch (InterruptedException e){
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper message;
+
+            try {
+
+                message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+                message.setSubject("SOLICITAÇÃO DOAÇÃO");
+                message.setTo(utilidades.convertListToString(emails));
+                String htmlContent = templateEngine.process("solicitacao-sangue.html", context);
+                message.setText(htmlContent, true);
+
+
+            } catch (MessagingException e) {
                 e.printStackTrace();
             }
 
-            System.out.println("Email enviado ... ");
+            mailSender.send(mimeMessage);
 
         }
 
