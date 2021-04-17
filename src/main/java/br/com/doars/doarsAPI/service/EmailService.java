@@ -64,22 +64,28 @@ public class EmailService {
     @Scheduled(fixedDelay = 8000)
     public void sendSimpleEmailQuestion(EmailForm emailForm){
 
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setFrom(emailForm.getEmail());
-        simpleMailMessage.setTo(emailPlataforma);
-        simpleMailMessage.setSubject(emailForm.getAssunto());
-        simpleMailMessage.setText(emailForm.getMensagem());
+        Context context = new Context();
+        context.setVariable("nome", emailForm.getNome());
+        context.setVariable("email", emailForm.getEmail());
+        context.setVariable("mensagem", emailForm.getMensagem());
+
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper message;
 
         try {
 
-            mailSender.send(simpleMailMessage);
-            Thread.sleep(5000);
+            message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+            message.setSubject("DUVIDA");
+            message.setTo(emailPlataforma);
+            String htmlContent = templateEngine.process("contato-template.html", context);
+            message.setText(htmlContent, true);
 
-        }catch (InterruptedException e ){
+
+        } catch (MessagingException e) {
             e.printStackTrace();
         }
 
-        System.out.println("Email enviado...");
+        mailSender.send(mimeMessage);
 
     }
 
