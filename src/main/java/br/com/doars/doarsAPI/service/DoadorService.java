@@ -20,6 +20,7 @@ import java.util.List;
 public class DoadorService {
 
     private DoadorRepository doadorRepository;
+    private EntidadeRepository entidadeRepository;
     private EstadoRepository estadoRepository;
     private MunicipioRepository municipioRepository;
     private TipoSanguineoRepository tipoSanguineoRepository;
@@ -44,6 +45,11 @@ public class DoadorService {
         doador.setTipoSanguineo(tipoSanguineo);
 
         validation.doadorOrExists(doadorRepository, doador);
+
+        Entidade entidade = new Entidade();
+        entidade.setContato(contato);
+
+        validation.entidadeOrEmailExists(entidadeRepository, entidade);
 
         Doador doadorRegistered = doadorRepository.save(doador);
 

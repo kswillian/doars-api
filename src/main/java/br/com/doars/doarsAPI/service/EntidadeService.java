@@ -3,14 +3,11 @@ package br.com.doars.doarsAPI.service;
 import br.com.doars.doarsAPI.controller.form.EntidadeForm;
 import br.com.doars.doarsAPI.domain.*;
 import br.com.doars.doarsAPI.exception.ViolationException;
+import br.com.doars.doarsAPI.repository.*;
 import br.com.doars.doarsAPI.util.Validation;
 import br.com.doars.doarsAPI.controller.dto.EntidadeDTO;
 import br.com.doars.doarsAPI.controller.form.EntidadeFormUpdate;
 import br.com.doars.doarsAPI.controller.form.UsuarioForm;
-import br.com.doars.doarsAPI.repository.EntidadeRepository;
-import br.com.doars.doarsAPI.repository.EstadoRepository;
-import br.com.doars.doarsAPI.repository.MunicipioRepository;
-import br.com.doars.doarsAPI.repository.UsuarioRepository;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +21,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class EntidadeService {
 
+    private DoadorRepository doadorRepository;
     private EntidadeRepository entidadeRepository;
     private MunicipioRepository municipioRepository;
     private EstadoRepository estadoRepository;
@@ -60,6 +58,10 @@ public class EntidadeService {
 
         validation.entidadeOrCnpExists(entidadeRepository, entidade);
         validation.entidadeOrEmailExists(entidadeRepository, entidade);
+
+        Doador doador = new Doador();
+        doador.setContato(contato);
+        validation.doadorOrExists(doadorRepository, doador);
 
         Entidade entidadeRegistered = entidadeRepository.save(entidade);
 

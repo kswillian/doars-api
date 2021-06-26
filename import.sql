@@ -1,5 +1,4 @@
 insert into pais(id, nome, sigla) values(1, 'Brasil', 'BR');commit;
---
 insert into estados(id, sigla, nome, latitude, longitude, pais_id) values
 (11,'RO','Rondônia',-10.83,-63.34, 1),
 (12,'AC','Acre',-8.77,-70.55, 1),
@@ -27,8 +26,7 @@ insert into estados(id, sigla, nome, latitude, longitude, pais_id) values
 (50,'MS','Mato Grosso do Sul',-20.51,-54.54, 1),
 (51,'MT','Mato Grosso',-12.64,-55.42, 1),
 (52,'GO','Goiás',-15.98,-49.86, 1),
-(53,'DF','Distrito Federal',-15.83,-47.86, 1);
---
+(53,'DF','Distrito Federal',-15.83,-47.86, 1);commit;
 insert into municipios (id, nome, latitude, longitude, capital, estado_id) values
 (5200050, 'Abadia de Goiás', -16.7573, -49.4412, FALSE, 52),
 (3100104, 'Abadia dos Dourados', -18.4831, -47.3916, FALSE, 31),
@@ -5599,15 +5597,13 @@ insert into municipios (id, nome, latitude, longitude, capital, estado_id) value
 (2517407, 'Zabelê', -8.07901, -37.1057, FALSE, 25),
 (3557154, 'Zacarias', -21.0506, -50.0552, FALSE, 35),
 (2114007, 'Zé Doca', -3.27014, -45.6553, FALSE, 21),
-(4219853, 'Zortéa', -27.4521, -51.552, FALSE, 42);
-
-insert into perfil(descricao) values('Entidade'),('Doador');
-
-insert into tipo_sanguineo(descricao) values ('A+');
-insert into tipo_sanguineo(descricao) values ('A-');
-insert into tipo_sanguineo(descricao) values ('B+');
-insert into tipo_sanguineo(descricao) values ('B-');
-insert into tipo_sanguineo(descricao) values ('AB+');
-insert into tipo_sanguineo(descricao) values ('AB-');
-insert into tipo_sanguineo(descricao) values ('O+');
-insert into tipo_sanguineo(descricao) values ('O-');
+(4219853, 'Zortéa', -27.4521, -51.552, FALSE, 42);commit;
+insert into perfil(descricao) values('Entidade'),('Doador');commit;
+insert into tipo_sanguineo(descricao) values ('A+');commit;
+insert into tipo_sanguineo(descricao) values ('A-');commit;
+insert into tipo_sanguineo(descricao) values ('B+');commit;
+insert into tipo_sanguineo(descricao) values ('B-');commit;
+insert into tipo_sanguineo(descricao) values ('AB+');commit;
+insert into tipo_sanguineo(descricao) values ('AB-');commit;
+insert into tipo_sanguineo(descricao) values ('O+');commit;
+insert into tipo_sanguineo(descricao) values ('O-');commit;
