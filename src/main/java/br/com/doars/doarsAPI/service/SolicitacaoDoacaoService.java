@@ -89,7 +89,7 @@ public class SolicitacaoDoacaoService {
     public Page<SolicitacaoDoacaoDTO> listAllByEntidadeId(Pageable pageable, Long id){
         validation.entidadeOrResourceNotFoundException(entidadeRepository, id);
         Page<SolicitacaoDoacaoDTO> solicitacoesDoacao = SolicitacaoDoacaoDTO.converterMotelToDTO(
-                solicitacaoDoacaoRepository.findAllByEntidadeId(pageable, id));
+                solicitacaoDoacaoRepository.findAllByEntidadeIdAndAtivoTrue(pageable, id));
         return solicitacoesDoacao;
     }
 
