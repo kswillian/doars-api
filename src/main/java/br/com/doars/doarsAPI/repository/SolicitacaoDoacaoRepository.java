@@ -20,7 +20,7 @@ public interface SolicitacaoDoacaoRepository extends JpaRepository<SolicitacaoDo
             "s.id = sts.solicitacao_doacao_id and s.ativo = true and s.entidade_id = ?1 and sts.tipos_sanguineos_id = ?2", nativeQuery = true)
     Long countSolicitacoesDoacaoAtivasByEntidadeAndTipoSanguineo(Long entidadeId, Long tipoSanguineoDd);
 
-    Page<SolicitacaoDoacao> findAllByEntidadeId(Pageable pageable, Long id);
+    Page<SolicitacaoDoacao> findAllByEntidadeIdAndAtivoTrue(Pageable pageable, Long id);
 
     @Query(value = "select distinct s.* from solicitacao_doacao s, entidade e, solicitacao_doacao_tipos_sanguineos sdt, tipo_sanguineo tp \n" +
             "where s.entidade_id = e.id and s.id = sdt.solicitacao_doacao_id and sdt.tipos_sanguineos_id = tp.id and tp.id in ?1 and s.entidade_id = ?2 and s.ativo = true", nativeQuery = true)
