@@ -119,7 +119,7 @@ public class SolicitacaoDoacaoService {
                     solicitacaoDoacaoRepository.findAllByEntidadeIdAndTiposSanguineosAndDescricao(pageable, tipoSanguineos, search, entidade.getId()));
         }else {
             solicitacoesDoacao = SolicitacaoDoacaoDTO.converterMotelToDTO(
-                    solicitacaoDoacaoRepository.findAllByEntidadeId(pageable, entidade.getId()));
+                    solicitacaoDoacaoRepository.findAllByEntidadeIdAndAtivoTrue(pageable, entidade.getId()));
         }
 
         return solicitacoesDoacao;
